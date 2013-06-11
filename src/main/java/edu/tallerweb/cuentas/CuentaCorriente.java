@@ -47,8 +47,8 @@ public class CuentaCorriente extends AbstractCuenta {
 			this.setMonto(this.getMonto() + monto);
 
 		} else
-			throw new CuentaBancariaException(
-					"El monto debe ser un numero positivo");
+			throw new CuentaBancariaException("CuentaSueldo No se puede depositar un monto negativo");
+
 	}
 
 	/**
