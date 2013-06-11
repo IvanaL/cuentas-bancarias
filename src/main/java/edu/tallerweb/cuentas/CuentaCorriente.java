@@ -92,7 +92,7 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @return el saldo de la cuenta
 	 */
 	public Double getSaldo() {
-		return this.getMonto();
+		return super.getMonto();
 	}
 
 	/**
@@ -101,14 +101,7 @@ public class CuentaCorriente extends AbstractCuenta {
 	 * @return el descubierto de la cuenta
 	 */
 	public Double getDescubierto() {
-		return this.getDescubierto();
+		return saldoDescubierto;
 	}
 
-	public Double getDescubiertoTotal() {
-		return descubiertoTotal;
-	}
-
-	public void setDescubiertoTotal(Double descubiertoTotal) {
-		this.descubiertoTotal = descubiertoTotal;
-	}
 }
