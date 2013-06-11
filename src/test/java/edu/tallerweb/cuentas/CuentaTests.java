@@ -56,19 +56,14 @@ public class CuentaTests {
 
 	@Test
 	public void queVerifiqueLaConsignaCuentaCorriente() {
-		CuentaCorriente cuenta_c = new CuentaCorriente(new Double(600));
-		cuenta_c.depositar(100.0);
+		CuentaCorriente cuentacc = new CuentaCorriente(new Double (600));
+		cuentacc.depositar(4000.0);
 
-		Assert.assertEquals(
-				"al depositar $ 100.0 en una cuenta vacía, tiene $ 100.0",
-				100.0, cuenta_c.getSaldo(), 0.0);
-
-		cuenta_c.InicializarDescubiertoTotal(20.0);
-		cuenta_c.extraer(110.0);
-
-		Assert.assertEquals("Al extraer 110 tiene 0 de descubierto", -15.0,
-				cuenta_c.getSaldo(), -15.0);
-
+		cuentacc.extraer(500.0);
+		cuentacc.extraer(4000.0);
+		cuentacc.depositar(100.0);
+		cuentacc.depositar(500.0);
+		
+		
 	}
-
 }

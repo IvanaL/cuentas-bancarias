@@ -37,12 +37,15 @@ public class CajaAhorros extends AbstractCuenta {
 		if (this.getMonto() > monto) {
 			if (cantidadextraccion >= 5)
 				this.setMonto(this.getMonto() - monto - 6);
-			else
-				this.setMonto(this.getMonto() - monto);
+			else{
+			this.setMonto(this.getMonto() - monto);
 			this.cantidadextraccion++;
-		} else
+			}
+		} 
+		else{
 			throw new CuentaBancariaException(
 					"El monto debe ser menor al que usted tiene depositado");
+		}
 	}
 
 	/**

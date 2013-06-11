@@ -16,7 +16,10 @@ package edu.tallerweb.cuentas;
  */
 public class CuentaCorriente extends AbstractCuenta {
 
+	private final static double COMISION = 0.05;
+	private Double saldoDescubierto;
 	private Double descubiertoTotal;
+
 
 	/**
 	 * Toda cuenta corriente se inicia con un límite total para el descubierto.
@@ -26,13 +29,10 @@ public class CuentaCorriente extends AbstractCuenta {
 
 	public CuentaCorriente(final Double descubiertoTotal) {
 		super.setMonto(new Double(0));
+		this.saldoDescubierto = descubiertoTotal;
 		this.descubiertoTotal = descubiertoTotal;
 	}
 
-	public void InicializarDescubiertoTotal(Double descubiertoTotal) {
-
-		this.setDescubiertoTotal(descubiertoTotal);
-	}
 
 	/**
 	 * Todo depósito deberá cubrir primero el descubierto, si lo hubiera, y
@@ -42,14 +42,24 @@ public class CuentaCorriente extends AbstractCuenta {
 	 *            a depositar
 	 */
 	public void depositar(final Double monto) {
-		if (this.getMonto() >= 0) {
-			this.setMonto(this.getMonto() + monto);
-
-		} else
-			throw new CuentaBancariaException(
-					"CuentaSueldo No se puede depositar un monto negativo");
-
+		if (monto < 0) {
+			throw new CuentaBancariaException("CuentaSueldo No se puede depositar un monto negativo");
+		}
+		if (getMonto().intValue() > 0) {
+			this.setMonto(getMonto() + monto);
+		} else {
+			Double depositoDescubierto = descubiertoTotal - saldoDescubierto;
+			if (monto > depositoDescubierto) {
+				saldoDescubierto = descubiertoTotal;
+				this.setMonto(monto - depositoDescubierto);
+			} else {
+				this.setMonto(new Double(0));
+				saldoDescubierto += monto;
+			}
+		}
+		System.out.println("CuentaCorriente Deposito " + monto + " -> El saldo es:" + getSaldo() + " el saldo descubierto es:" + saldoDescubierto);
 	}
+
 
 	/**
 	 * Se cobrará el 5% de comisión sobre el monto girado en descubierto. Por
@@ -60,22 +70,24 @@ public class CuentaCorriente extends AbstractCuenta {
 	 *            a extraer
 	 */
 	public void extraer(final Double monto) {
-		if (this.getMonto() < this.descubiertoTotal * -1)
-			throw new CuentaBancariaException(
-					"Debe cubrir primero el descubierto total");
-
-		else {
-			if (this.getMonto() - monto > 0)
-				this.setMonto(this.getMonto() - monto);
-			else {
-				if (this.getMonto() - monto >= this.descubiertoTotal * -1)
-					this.setMonto(this.getMonto() - monto - 0.05
-							* this.getMonto());
-				else
-					throw new CuentaBancariaException(
-							"El monto  debe ser menor al que usted tiene depositado");
-			}
+		if (monto < 0) {
+			throw new CuentaBancariaException("CuentaCorriente No se puede extraer un monto negativo");
 		}
+		if (getMonto() < monto) {
+			Double importeDescubierto = (monto - getMonto()) + ((monto - getMonto()) * COMISION);
+			if (saldoDescubierto > importeDescubierto) {
+			saldoDescubierto -= importeDescubierto;
+			this.setMonto(new Double(0));
+			}
+		else{
+			System.out.println("CuentaCorriente Extracci�n Fallida " + monto + " -> El saldo es:" + getMonto() + " el disponible descubierto es: " + getDescubierto());
+			throw new CuentaBancariaException("La operacion no puede realizarse, el saldo es insuficiente");
+			}  
+		}
+		else {
+			setMonto(getMonto() - monto);
+		}
+		System.out.println("CuentaCorriente Extracci�n " + monto + " -> El saldo es:" + getMonto());
 	}
 
 	/**

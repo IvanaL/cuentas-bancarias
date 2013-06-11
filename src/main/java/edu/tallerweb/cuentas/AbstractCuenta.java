@@ -8,9 +8,7 @@ package edu.tallerweb.cuentas;
  * métodos proporcionados.
  */
 public abstract class AbstractCuenta {
-
 	private Double monto;
-
 	/**
 	 * Agrega a la cuenta el monto determinado
 	 * 
@@ -18,7 +16,6 @@ public abstract class AbstractCuenta {
 	 *            a depositar
 	 */
 	public abstract void depositar(final Double monto);
-
 	/**
 	 * Retira de la cuenta el monto determinado
 	 * 

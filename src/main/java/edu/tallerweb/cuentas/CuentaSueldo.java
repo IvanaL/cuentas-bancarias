@@ -20,9 +20,10 @@ public class CuentaSueldo extends AbstractCuenta {
 	public void depositar(final Double monto) {
 		if (this.getMonto() >= 0)
 			this.setMonto(this.getMonto() + monto);
-		else
+		else{
 			throw new CuentaBancariaException(
 					"El monto debe ser un numero positivo");
+		}
 	}
 
 	/**
@@ -34,9 +35,11 @@ public class CuentaSueldo extends AbstractCuenta {
 	public void extraer(final Double monto) {
 		if (this.getMonto() > monto) {
 			this.setMonto(this.getMonto() - monto);
-		} else
+		} 
+		else{
 			throw new CuentaBancariaException(
 					"El monto debe ser menor al que usted tiene depositado");
+		}
 	}
 
 	/**
