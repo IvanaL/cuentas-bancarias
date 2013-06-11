@@ -13,38 +13,39 @@ public class CuentaSueldo extends AbstractCuenta {
 
 	/**
 	 * No hay reglas adicionales para el depÃ³sito
-	 * 
 	 * @param monto
 	 *            a depositar
 	 */
 	public void depositar(final Double monto) {
-		if (this.getMonto() >= 0) {
+		if (this.getMonto() < 0) {
+			throw new CuentaBancariaException("CuentaSueldo No se puede depositar un monto negativo");
+		}
 			this.setMonto(this.getMonto() + monto);
-		}
-		else {
-			throw new CuentaBancariaException(
-					"El monto debe ser un numero positivo");
-		}
 	}
 
 	/**
-	 * No hay reglas adicionales para la extracciÃ³n
-	 * 
+	 * No hay reglas adicionales para la extracciÃ³n 
 	 * @param monto
 	 *            a extraer
 	 */
 	public void extraer(final Double monto) {
-		if (this.getMonto() > monto) {
-			this.setMonto(this.getMonto() - monto);
-		} else {
-			throw new CuentaBancariaException(
-					"El monto debe ser menor al que usted tiene depositado");
-		}
+		if (monto < 0) {
+			throw new CuentaBancariaException("CuentaSueldo No se puede extraer un monto negativo");
+			}
+			Double saldoActual = getSaldo();
+			if (saldoActual < monto) {
+				System.out.println("CuentaSueldo Extracción Fallida " + monto + " -> El saldo es:" + getSaldo());
+				throw new CuentaBancariaException("La operacion no puede realizarse, el saldo es insuficiente");
+			}
+			else {
+				saldoActual -= monto;
+				this.setMonto(saldoActual);
+			}
+			System.out.println("CuentaSueldo Extracción " + monto + " -> El saldo es:" + getSaldo());	
 	}
 
 	/**
 	 * Permite saber el saldo de la cuenta
-	 * 
 	 * @return el saldo de la cuenta
 	 */
 	public Double getSaldo() {

@@ -16,8 +16,7 @@ public class CajaAhorros extends AbstractCuenta {
 	}
 
 	/**
-	 * No hay reglas adicionales para el depósito
-	 * 
+	 * No hay reglas adicionales para el depósito 
 	 * @param monto
 	 *            a depositar
 	 */
@@ -32,14 +31,14 @@ public class CajaAhorros extends AbstractCuenta {
 
 	/**
 	 * Se cobran $6 adicionales por cada extracción luego de la quinta.
-	 * 
 	 * @param monto
 	 *            a extraer
 	 */
 	public void extraer(final Double monto) {
 		if (this.getMonto() > monto) {
-			if (cantidadextraccion >= A)
+			if (cantidadextraccion >= A) {
 				this.setMonto(this.getMonto() - monto - B);
+			}
 			else {
 				this.setMonto(this.getMonto() - monto);
 				this.cantidadextraccion++;
@@ -52,7 +51,6 @@ public class CajaAhorros extends AbstractCuenta {
 
 	/**
 	 * Permite saber el saldo de la cuenta
-	 * 
 	 * @return el saldo de la cuenta
 	 */
 	public Double getSaldo() {
