@@ -7,6 +7,8 @@ package edu.tallerweb.cuentas;
 public class CajaAhorros extends AbstractCuenta {
 
 	private Integer cantidadextraccion;
+	private final static double A = 5;
+	private final static double B = 6;
 
 	public CajaAhorros() {
 		super.setMonto(new Double("0"));
@@ -20,11 +22,12 @@ public class CajaAhorros extends AbstractCuenta {
 	 *            a depositar
 	 */
 	public void depositar(final Double monto) {
-		if (this.getMonto() >= 0)
+		if (this.getMonto() >= 0) {
 			this.setMonto(this.getMonto() + monto);
-		else
+		} else {
 			throw new CuentaBancariaException(
 					"El monto debe ser un numero positivo");
+		}
 	}
 
 	/**
@@ -35,14 +38,13 @@ public class CajaAhorros extends AbstractCuenta {
 	 */
 	public void extraer(final Double monto) {
 		if (this.getMonto() > monto) {
-			if (cantidadextraccion >= 5)
-				this.setMonto(this.getMonto() - monto - 6);
-			else{
-			this.setMonto(this.getMonto() - monto);
-			this.cantidadextraccion++;
+			if (cantidadextraccion >= A)
+				this.setMonto(this.getMonto() - monto - B);
+			else {
+				this.setMonto(this.getMonto() - monto);
+				this.cantidadextraccion++;
 			}
-		} 
-		else{
+		} else {
 			throw new CuentaBancariaException(
 					"El monto debe ser menor al que usted tiene depositado");
 		}

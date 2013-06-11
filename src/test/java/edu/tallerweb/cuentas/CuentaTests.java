@@ -56,14 +56,13 @@ public class CuentaTests {
 
 	@Test
 	public void queVerifiqueLaConsignaCuentaCorriente() {
-		CuentaCorriente cuentacc = new CuentaCorriente(new Double (600));
+		CuentaCorriente cuentacc = new CuentaCorriente(new Double(600));
 		cuentacc.depositar(4000.0);
 
 		cuentacc.extraer(500.0);
 		cuentacc.extraer(4000.0);
 		cuentacc.depositar(100.0);
 		cuentacc.depositar(500.0);
-		
-		
+
 	}
 }
