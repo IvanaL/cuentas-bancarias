@@ -19,8 +19,6 @@ public class CuentaCorriente extends AbstractCuenta {
 	private final static double COMISION = 0.05;
 	private Double saldoDescubierto;
 	private Double descubiertoTotal;
-
-
 	/**
 	 * Toda cuenta corriente se inicia con un límite total para el descubierto.
 	 * 
@@ -32,8 +30,6 @@ public class CuentaCorriente extends AbstractCuenta {
 		this.saldoDescubierto = descubiertoTotal;
 		this.descubiertoTotal = descubiertoTotal;
 	}
-
-
 	/**
 	 * Todo depósito deberá cubrir primero el descubierto, si lo hubiera, y
 	 * luego contar para el saldo de la cuenta.
